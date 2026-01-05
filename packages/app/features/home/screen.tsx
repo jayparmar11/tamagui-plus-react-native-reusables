@@ -1,13 +1,13 @@
 'use client'
 
-      import {
+import {
   Anchor,
   H1,
   Paragraph,
   Separator,
   Sheet,
   SwitchThemeButton,
-  useToastController
+  useToastController,
 } from '@my/ui'
 import { Activity, Airplay, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
 import { useState } from 'react'
@@ -18,6 +18,9 @@ import { Button, XGroup, XStack, YStack } from 'tamagui'
 export function HomeScreen() {
   const linkProps = useLink({
     href: '/user/Jay_Parmar',
+  })
+  const todoLinkProps = useLink({
+    href: '/todo',
   })
 
   return (
@@ -35,7 +38,7 @@ export function HomeScreen() {
       </XStack>
 
       <YStack gap="$4">
-        <H1 text="center" color="$color12" >
+        <H1 text="center" color="$color12">
           Welcome to Tamagui.
         </H1>
         <Paragraph color="$color10" text="center">
@@ -49,43 +52,9 @@ export function HomeScreen() {
       </YStack>
 
       <Button {...linkProps}>Link to user</Button>
+      <Button {...todoLinkProps}>Open TODO app</Button>
 
       <SheetDemo />
-    <YStack p="$3" gap="$3" >
-      <Button>Plain</Button>
-      <Button self="center" icon={Airplay} size="$6">
-        Large
-      </Button>
-      <XStack gap="$2" justify="center">
-        <Button size="$3" theme="accent">
-          Active
-        </Button>
-        <Button size="$3" variant="outlined">
-          Outlined
-        </Button>
-      </XStack>
-      <XStack gap="$2">
-        <Button themeInverse size="$3">
-          Inverse
-        </Button>
-        <Button iconAfter={Activity} size="$3">
-          iconAfter
-        </Button>
-      </XStack>
-      <XGroup>
-        <XGroup.Item>
-          <Button width="50%" size="$2" disabled opacity={0.5}>
-            disabled
-          </Button>
-        </XGroup.Item>
-
-        <XGroup.Item>
-          <Button width="50%" size="$2" chromeless>
-            chromeless
-          </Button>
-        </XGroup.Item>
-      </XGroup>
-    </YStack>
     </YStack>
   )
 }
