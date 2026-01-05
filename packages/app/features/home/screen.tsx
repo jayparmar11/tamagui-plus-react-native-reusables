@@ -23,6 +23,10 @@ export function HomeScreen() {
     href: '/todo',
   })
 
+  const loginLinkProps = useLink({
+    href: '/login',
+  })
+
   return (
     <YStack flex={1} justify="center" items="center" gap="$8" p="$4" bg="$background">
       <XStack
@@ -41,18 +45,11 @@ export function HomeScreen() {
         <H1 text="center" color="$color12">
           Welcome to Tamagui.
         </H1>
-        <Paragraph color="$color10" text="center">
-          Here's a basic starter to show navigating from one screen to another.
-        </Paragraph>
-        <Separator />
-        <Paragraph text="center">
-          This screen uses the same code on Next.js and React Native.
-        </Paragraph>
         <Separator />
       </YStack>
 
-      <Button {...linkProps}>Link to user</Button>
-      <Button {...todoLinkProps}>Open TODO app</Button>
+      <Button {...todoLinkProps}>TODO app</Button>
+      <Button {...loginLinkProps}>Sign in</Button>
 
       <SheetDemo />
     </YStack>
