@@ -2775,6 +2775,7 @@ __metadata:
   dependencies:
     "@my/config": "npm:0.0.1"
     "@tamagui/build": "npm:^1.143.0"
+    "@tamagui/input": "npm:^1.143.0"
     "@tamagui/toast": "npm:^1.143.0"
     tamagui: "npm:^1.143.0"
   languageName: unknown
@@ -4735,7 +4736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tamagui/input@npm:1.143.0":
+"@tamagui/input@npm:1.143.0, @tamagui/input@npm:^1.143.0":
   version: 1.143.0
   resolution: "@tamagui/input@npm:1.143.0"
   dependencies:
@@ -11786,6 +11787,7 @@ __metadata:
     "@babel/runtime": "npm:^7.24.6"
     "@biomejs/biome": "npm:^1.9.3"
     "@tamagui/cli": "npm:^1.143.0"
+    "@tamagui/input": "npm:^1.143.0"
     "@tamagui/react-native-svg": "npm:^1.143.0"
     "@tamagui/react-native-web-lite": "npm:^1.143.0"
     check-dependency-version-consistency: "npm:^4.1.0"
