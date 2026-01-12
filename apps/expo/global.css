@@ -1,0 +1,4 @@
+/* EXPO NOT GENERATING STYLE FROM @my/ui/global.css , so keep this global.css local to project */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
