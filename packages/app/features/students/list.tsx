@@ -134,7 +134,7 @@ export function StudentListScreen() {
   const isDeleting = deleteMutation.isPending || deleteMutation.isLoading
 
   return (
-    <YStack className="flex-1 max-w-3xl gap-4 px-4 pt-4 pb-16 mx-auto ">
+    <YStack className="flex-1 w-full max-w-3xl gap-4 px-4 pt-4 pb-16 mx-auto ">
       {/* Header */}
       <XStack className="items-center justify-between">
         <YStack>

@@ -43,7 +43,7 @@ function RootLayoutNav() {
     <Provider>
       <AppQueryClientProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack screenOptions={{ headerShown: false }} />
+          <Stack />
           <NativeToast />
         </ThemeProvider>
       </AppQueryClientProvider>
