@@ -8,7 +8,7 @@ import {
   isWeb,
 } from '@my/ui'
 import { ToastViewport } from './ToastViewport'
-// import { PortalHost } from '@rn-primitives/portal'
+import { PortalHost } from '@rn-primitives/portal'
 
 export function Provider({
   children,
@@ -25,7 +25,7 @@ export function Provider({
         <CustomToast />
         <ToastViewport />
       </ToastProvider>
-      {/* <PortalHost /> */}
+      <PortalHost />
     </TamaguiProvider>
   )
 }
