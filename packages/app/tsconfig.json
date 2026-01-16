@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base",
   "include": [
+    "./nativewind-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
