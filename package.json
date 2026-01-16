@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "turbo dev",
-    "native": "cd apps/native && yarn start",
+    "native": "cd apps/native && yarn dev",
     "native:prebuild": "cd apps/native && yarn prebuild",
     "ios": "cd apps/native && yarn ios",
     "android": "cd apps/native && yarn android",

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "expo start --go",
+    "dev": "expo start --go --tunnel",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
