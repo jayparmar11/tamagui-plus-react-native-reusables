@@ -7,6 +7,7 @@ import { Provider } from 'app/provider'
 import { NativeToast } from '@my/ui/src/NativeToast'
 import '../global.css'
 import { AppQueryClientProvider } from 'app/provider/query-client-provider'
+import { View } from 'react-native'
 
 export const unstable_settings = {
   // Ensure that reloading on `/user` keeps a back button present.
@@ -43,7 +44,7 @@ function RootLayoutNav() {
     <Provider>
       <AppQueryClientProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack />
+          <Stack screenOptions={{ headerTitle: '' }} />
           <NativeToast />
         </ThemeProvider>
       </AppQueryClientProvider>

@@ -10,7 +10,7 @@ import {
   useGetStudents,
   getGetStudentsQueryKey,
 } from './../../api/generated/default/default'
-import { type Student } from './../../api/generated/model/student.ts'
+import { type Student } from './../../api/generated/model/student'
 import { useQueryClient } from '@tanstack/react-query'
 
 type DeleteState = {
@@ -66,7 +66,7 @@ function StudentRow({
   const editLink = useLink({ href: `/students/update/${id}` })
 
   return (
-    <XStack className="flex-row items-center px-3 py-2 border rounded-lg shadow-sm border-zinc-300">
+    <XStack className="flex-row items-center px-3 py-2 border rounded-lg native:border-2 web:shadow-sm border-zinc-300">
       <YStack className="flex-1" {...itemLink}>
         <Text className="text-base font-medium">{name}</Text>
         <XStack className="gap-2 mt-1">
@@ -203,8 +203,10 @@ export function StudentListScreen() {
             dismissOnSnapToBottom
             unmountChildrenWhenHidden
           >
-            <Sheet.Frame className="gap-4 p-4">
-              <Adapt.Contents />
+            <Sheet.Frame>
+              <View className="p-4">
+                <Adapt.Contents />
+              </View>
             </Sheet.Frame>
             <Sheet.Overlay
               bg="$shadow6"

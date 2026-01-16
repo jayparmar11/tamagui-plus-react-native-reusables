@@ -5,8 +5,10 @@ import { useState } from 'react'
 import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import { useLink } from 'solito/navigation'
 import { useCreateStudent, getGetStudentsQueryKey } from './../../api/generated/default/default'
-import { Button, H1, Text, XStack, YStack, Input } from '@my/ui'
+import { Button, H1, Text, XStack, YStack, Input, View } from '@my/ui'
 import { useQueryClient } from '@tanstack/react-query'
+
+const Form = Platform.OS === 'web' ? 'form' : View
 
 export function AddStudentScreen() {
   const [name, setName] = useState('')
@@ -16,7 +18,7 @@ export function AddStudentScreen() {
   const queryClient = useQueryClient()
 
   // const toast = useToastController()
-  const backToListLink = useLink({ href: '/students' })
+  // const backToListLink = useLink({ href: '/students' })
   const router = useRouter()
 
   const createMutation = useCreateStudent({
@@ -80,7 +82,7 @@ export function AddStudentScreen() {
             </YStack>
 
             {/* Form */}
-            <YStack className="gap-4">
+            <Form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <YStack className="gap-1">
                 <Text className="text-sm">Name</Text>
                 <Input
@@ -106,11 +108,16 @@ export function AddStudentScreen() {
               </YStack>
 
               {serverError ? <Text className="text-xs text-red-500">{serverError}</Text> : null}
-            </YStack>
+            </Form>
 
             {/* Actions */}
             <XStack className="justify-end gap-3 mt-4">
-              <Button size="$3" variant="outline" disabled={isSubmitting} {...backToListLink}>
+              <Button
+                size="$3"
+                variant="outline"
+                disabled={isSubmitting}
+                onPress={() => router.back()}
+              >
                 Cancel
               </Button>
 

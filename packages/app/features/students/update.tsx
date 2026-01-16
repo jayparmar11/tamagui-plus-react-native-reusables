@@ -8,12 +8,14 @@ import {
   useUpdateStudent,
   getGetStudentsQueryKey,
 } from './../../api/generated/default/default'
-import { Button, H1, Text, XStack, YStack, Input } from '@my/ui'
+import { Button, H1, Text, XStack, YStack, Input, View } from '@my/ui'
 import { useQueryClient } from '@tanstack/react-query'
 
 type UpdateStudentScreenProps = {
   id: string
 }
+
+const Form = Platform.OS === 'web' ? 'form' : View
 
 export function UpdateStudentScreen(props: UpdateStudentScreenProps) {
   const { id } = props
@@ -24,7 +26,7 @@ export function UpdateStudentScreen(props: UpdateStudentScreenProps) {
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({})
   const [serverError, setServerError] = useState<string | null>(null)
 
-  const backToListLink = useLink({ href: '/students' })
+  // const backToListLink = useLink({ href: '/students' })
   const router = useRouter()
 
   const { data, isLoading } = useGetStudentById(id)
@@ -101,7 +103,7 @@ export function UpdateStudentScreen(props: UpdateStudentScreenProps) {
 
             {/* Form */}
             {!isLoading && (
-              <YStack className="gap-4">
+              <Form className="gap-4 flex flex-col" onSubmit={handleSubmit}>
                 <YStack className="gap-1">
                   <Text className="text-sm">Name</Text>
                   <Input
@@ -129,12 +131,17 @@ export function UpdateStudentScreen(props: UpdateStudentScreenProps) {
                 </YStack>
 
                 {serverError ? <Text className="text-xs text-red-500">{serverError}</Text> : null}
-              </YStack>
+              </Form>
             )}
 
             {/* Actions */}
             <XStack className="justify-end gap-3 mt-4">
-              <Button size="$3" variant="outline" disabled={isSubmitting} {...backToListLink}>
+              <Button
+                size="$3"
+                variant="outline"
+                disabled={isSubmitting}
+                onPress={() => router.back()}
+              >
                 Cancel
               </Button>
 

@@ -4,7 +4,6 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
