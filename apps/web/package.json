@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@my/config": "workspace:*",
-    "@tanstack/react-query": "^5.90.16",
-    "axios": "^1.13.2",
     "@my/ui": "workspace:*",
     "@tamagui/next-theme": "^1.144.1",
+    "@tanstack/react-query": "^5.90.16",
     "app": "workspace:*",
+    "axios": "^1.13.2",
     "nativewind": "^4.2.1",
     "next": "16.1.2",
     "react": "19.1.0",

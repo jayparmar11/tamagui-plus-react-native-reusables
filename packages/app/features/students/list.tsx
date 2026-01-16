@@ -1,16 +1,67 @@
 'use client'
-import { Platform } from 'react-native'
-import { Button, H1, Separator, Text, XStack, YStack } from '@my/ui'
-// import { ChevronRight, Pencil, Plus, Trash2 } from '@tamagui/lucide-icons'
-import { useMemo } from 'react'
-import { useLink } from 'solito/navigation'
-import { useDeleteStudent, useGetStudents } from './../../api/generated/default/default'
 
-// 1. Create a separate component for the list item
-function StudentRow({ student, onDelete }: { student: any; onDelete: (id: string) => void }) {
+import { useMemo, useState } from 'react'
+import { Platform } from 'react-native'
+import { Adapt, Button, Dialog, H1, Separator, Sheet, Text, XStack, YStack, View } from '@my/ui'
+// import { ChevronRight, Pencil, Plus, Trash2 } from '@tamagui/lucide-icons'
+import { useLink } from 'solito/navigation'
+import {
+  useDeleteStudent,
+  useGetStudents,
+  getGetStudentsQueryKey,
+} from './../../api/generated/default/default'
+import { type Student } from './../../api/generated/model/student.ts'
+import { useQueryClient } from '@tanstack/react-query'
+
+type DeleteState = {
+  id: string | null
+  name: string | null
+}
+
+// Shared confirmation content
+function DeleteConfirmationContent(props: {
+  name: string | null
+  isDeleting: boolean
+  onCancel: () => void
+  onConfirm: () => void
+}) {
+  const { name, isDeleting, onCancel, onConfirm } = props
+
+  return (
+    <YStack className="gap-4">
+      <YStack className="gap-2">
+        <Text className="text-lg font-semibold">Delete student</Text>
+        <Text className="text-sm">
+          Are you sure you want to delete{' '}
+          <Text className="font-semibold">{name ?? 'this student'}</Text>? This action cannot be
+          undone.
+        </Text>
+      </YStack>
+
+      <XStack className="justify-end gap-3 mt-4">
+        {/* <Dialog.Close asChild> */}
+        <Button size="$3" variant="outline" disabled={isDeleting} onPress={onCancel}>
+          Cancel
+        </Button>
+        {/* </Dialog.Close> */}
+        <Button size="$3" theme="red" onPress={onConfirm} disabled={isDeleting}>
+          {isDeleting ? 'Deleting...' : 'Delete'}
+        </Button>
+      </XStack>
+    </YStack>
+  )
+}
+
+// 1. Row component
+function StudentRow({
+  student,
+  onAskDelete,
+}: {
+  student: Student
+  onAskDelete: (student: Student) => void
+}) {
   const { id, name, grade, rollNumber } = student
 
-  // Hooks are now at the top level of this sub-component
   const itemLink = useLink({ href: `/students/${id}` })
   const editLink = useLink({ href: `/students/update/${id}` })
 
@@ -28,7 +79,7 @@ function StudentRow({ student, onDelete }: { student: any; onDelete: (id: string
         <Button size="$2" theme="alt1" {...editLink}>
           🖊
         </Button>
-        <Button size="$2" theme="red" onPress={() => onDelete(id)}>
+        <Button size="$2" theme="red" onPress={() => onAskDelete(student)}>
           🚮
         </Button>
       </XStack>
@@ -36,22 +87,54 @@ function StudentRow({ student, onDelete }: { student: any; onDelete: (id: string
   )
 }
 
+// 2. Main screen
 export function StudentListScreen() {
   const { data, isLoading, isError } = useGetStudents()
   const deleteMutation = useDeleteStudent()
 
+  const queryClient = useQueryClient()
   const students = useMemo(() => data ?? [], [data])
 
   const addLink = useLink({
     href: '/students/add',
   })
 
-  const handleDelete = (id: string) => {
-    deleteMutation.mutate({ id })
+  const [deleteSheet, setDeleteSheet] = useState<DeleteState>({
+    id: null,
+    name: null,
+  })
+  const [isOpen, setIsOpen] = useState(false)
+
+  const onAskDelete = (student: Student) => {
+    setDeleteSheet({
+      id: student.id,
+      name: student.name,
+    })
+    setIsOpen(true)
   }
 
+  const closeDialog = () => {
+    setIsOpen(false)
+  }
+
+  const handleConfirmDelete = () => {
+    if (!deleteSheet.id) return
+
+    deleteMutation.mutate(
+      { id: deleteSheet.id },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: getGetStudentsQueryKey() })
+          closeDialog()
+        },
+      }
+    )
+  }
+
+  const isDeleting = deleteMutation.isPending || deleteMutation.isLoading
+
   return (
-    <YStack className="flex-1 max-w-3xl gap-4 px-4 pt-4 pb-16 mx-auto">
+    <YStack className="flex-1 max-w-3xl gap-4 px-4 pt-4 pb-16 mx-auto ">
       {/* Header */}
       <XStack className="items-center justify-between">
         <YStack>
@@ -88,9 +171,8 @@ export function StudentListScreen() {
 
       {/* List */}
       <YStack className="gap-3">
-        {students.map((student) => (
-          // 2. Use the sub-component here
-          <StudentRow key={student.id} student={student} onDelete={handleDelete} />
+        {students.map((student: Student) => (
+          <StudentRow key={student.id} student={student} onAskDelete={onAskDelete} />
         ))}
       </YStack>
 
@@ -108,6 +190,79 @@ export function StudentListScreen() {
           </Button>
         )}
       </XStack>
+
+      {/* Delete confirmation dialog + Adapt + Sheet */}
+      <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
+        {/* Trigger is the delete button; we only control open from state */}
+
+        <Adapt when="maxMd" platform="touch">
+          <Sheet
+            animation="medium"
+            zIndex={200000}
+            modal
+            dismissOnSnapToBottom
+            unmountChildrenWhenHidden
+          >
+            <Sheet.Frame className="gap-4 p-4">
+              <Adapt.Contents />
+            </Sheet.Frame>
+            <Sheet.Overlay
+              bg="$shadow6"
+              animation="lazy"
+              enterStyle={{ opacity: 0 }}
+              exitStyle={{ opacity: 0 }}
+            />
+          </Sheet>
+        </Adapt>
+
+        <Dialog.Portal>
+          <Dialog.Overlay
+            key="overlay"
+            bg="$shadow6"
+            animateOnly={['transform', 'opacity']}
+            animation={[
+              'quicker',
+              {
+                opacity: {
+                  overshootClamping: true,
+                },
+              },
+            ]}
+            enterStyle={{ opacity: 0 }}
+            exitStyle={{ opacity: 0 }}
+          />
+
+          <Dialog.FocusScope focusOnIdle>
+            <Dialog.Content
+              bordered
+              py="$4"
+              px="$6"
+              elevate
+              rounded="$6"
+              key="content"
+              animateOnly={['transform', 'opacity']}
+              animation={[
+                'quicker',
+                {
+                  opacity: {
+                    overshootClamping: true,
+                  },
+                },
+              ]}
+              enterStyle={{ x: 0, y: 20, opacity: 0 }}
+              exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
+              className="w-full max-w-md mx-auto bg-background"
+            >
+              <DeleteConfirmationContent
+                name={deleteSheet.name}
+                isDeleting={isDeleting}
+                onCancel={closeDialog}
+                onConfirm={handleConfirmDelete}
+              />
+            </Dialog.Content>
+          </Dialog.FocusScope>
+        </Dialog.Portal>
+      </Dialog>
     </YStack>
   )
 }
