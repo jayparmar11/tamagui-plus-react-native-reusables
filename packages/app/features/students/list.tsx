@@ -12,7 +12,7 @@ function StudentRow({ student, onDelete }: { student: any; onDelete: (id: string
 
   // Hooks are now at the top level of this sub-component
   const itemLink = useLink({ href: `/students/${id}` })
-  const editLink = useLink({ href: `/students/update?id=${id}` })
+  const editLink = useLink({ href: `/students/update/${id}` })
 
   return (
     <XStack className="flex-row items-center px-3 py-2 border rounded-lg shadow-sm border-zinc-300">

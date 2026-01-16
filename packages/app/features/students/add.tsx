@@ -1,31 +1,34 @@
 'use client'
+import { useRouter } from 'solito/navigation'
 
 import { useState } from 'react'
 import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import { useLink } from 'solito/navigation'
-import { useCreateStudent } from './../../api/generated/default/default'
+import { useCreateStudent, getGetStudentsQueryKey } from './../../api/generated/default/default'
 import { Button, H1, Text, XStack, YStack, Input } from '@my/ui'
+import { useQueryClient } from '@tanstack/react-query'
 
 export function AddStudentScreen() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({})
   const [serverError, setServerError] = useState<string | null>(null)
+  const queryClient = useQueryClient()
 
   // const toast = useToastController()
   const backToListLink = useLink({ href: '/students' })
+  const router = useRouter()
 
   const createMutation = useCreateStudent({
     mutation: {
       onSuccess: () => {
         setServerError(null)
-        // toast.show('Student created', {
-        //   message: 'The student has been created successfully.',
-        // })
-        backToListLink.onPress?.({} as any)
+        router.back()
+        queryClient.invalidateQueries({ queryKey: getGetStudentsQueryKey() })
       },
       onError: (err: any) => {
         const message = err?.response?.data?.message || err?.message || 'Failed to create student.'
+        console.log(err)
         setServerError(message)
       },
     },

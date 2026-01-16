@@ -1,6 +1,6 @@
 import { AddStudentScreen } from 'app/features/students/add'
 
-export default function Index() {
+export default function Add() {
   return (
     <>
       <AddStudentScreen />
