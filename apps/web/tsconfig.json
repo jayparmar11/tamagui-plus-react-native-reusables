@@ -63,7 +63,6 @@
     ]
   },
   "include": [
-    "nativewind-env.d.ts",
     "types.d.ts",
     "next-env.d.ts",
     "**/*.ts",

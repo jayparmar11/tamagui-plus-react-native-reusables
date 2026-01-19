@@ -7,27 +7,47 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@my/api": ["../../packages/api/index.ts"],
-      "@my/api/*": ["../../packages/api/*"],
-      "@my/core": ["../../packages/core/src/index.ts"],
-      "@my/core/*": ["../../packages/core/src/*"],
-      "@my/features": ["../../packages/features/src/index.ts"],
-      "@my/features/*": ["../../packages/features/src/*"],
-      "@my/ui": ["../../packages/ui/src/index.tsx"],
-      "@my/ui/*": ["../../packages/ui/src/*"],
-      "@my/config": ["../../packages/config/src/index.ts"],
-      "@my/config/*": ["../../packages/config/src/*"]
+      "@my/api": [
+        "../../packages/api/index.ts"
+      ],
+      "@my/api/*": [
+        "../../packages/api/*"
+      ],
+      "@my/core": [
+        "../../packages/core/src/index.ts"
+      ],
+      "@my/core/*": [
+        "../../packages/core/src/*"
+      ],
+      "@my/features": [
+        "../../packages/features/src/index.ts"
+      ],
+      "@my/features/*": [
+        "../../packages/features/src/*"
+      ],
+      "@my/ui": [
+        "../../packages/ui/src/index.tsx"
+      ],
+      "@my/ui/*": [
+        "../../packages/ui/src/*"
+      ],
+      "@my/config": [
+        "../../packages/config/src/index.ts"
+      ],
+      "@my/config/*": [
+        "../../packages/config/src/*"
+      ]
     }
   },
   "include": [
     "app/**/*.ts",
     "app/**/*.tsx",
-    "nativewind-env.d.ts",
     "types.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "babel.config.js"
+    "babel.config.js",
+    "nativewind-env.d.ts"
   ]
 }

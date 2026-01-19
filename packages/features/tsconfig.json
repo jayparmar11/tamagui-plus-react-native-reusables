@@ -8,5 +8,5 @@
       "@my/features/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx","nativewind-env.d.ts","types.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx","types.d.ts","../config/src/nativewind-env.d.ts"]
 }

@@ -21,4 +21,7 @@
   "exclude": [
     "_"
   ],
+  "include": [
+    "packages/config/src/nativewind-env.d.ts"
+  ]
 }

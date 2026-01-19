@@ -39,7 +39,7 @@ function DialogOverlay({
         {...props}
         // asChild={Platform.OS !== 'web'}
         >
-        <NativeOnlyAnimatedView >
+        <NativeOnlyAnimatedView>
             <>{children}</>
         </NativeOnlyAnimatedView>
       </DialogPrimitive.Overlay>

@@ -1,6 +1,18 @@
 'use client'
 
-import { Adapt, Button, Dialog, H1, Separator, Sheet, Text, View, XStack, YStack } from '@my/ui'
+import {
+  Adapt,
+  Button,
+  Dialog,
+  H1,
+  ScrollView,
+  Separator,
+  Sheet,
+  Text,
+  View,
+  XStack,
+  YStack,
+} from '@my/ui'
 import { useMemo, useState } from 'react'
 import { Platform } from 'react-native'
 import { ChevronLeft, ChevronRight, Pencil, Plus, Trash2 } from '@tamagui/lucide-icons'
@@ -134,10 +146,16 @@ export function StudentListScreen() {
   const isDeleting = deleteMutation.isPending
 
   return (
-    <YStack className="flex-1 w-full max-w-3xl gap-4 px-4 pt-4 pb-16 mx-auto ">
+    <YStack className="flex-1 w-full max-w-3xl gap-4 px-4 pt-4 pb-4 mx-auto ">
       {/* Header */}
       <YStack className="items-start justify-start">
-        <Button size="$4" variant='outlined' icon={ChevronLeft} onPress={() => router.back()} className='w-fit'>
+        <Button
+          size="$4"
+          variant="outlined"
+          icon={ChevronLeft}
+          onPress={() => router.back()}
+          className="w-fit"
+        >
           <Text className="!font-bold text-xl">BACK</Text>
         </Button>
         <XStack className="items-center justify-between">
@@ -170,11 +188,13 @@ export function StudentListScreen() {
       )}
 
       {/* List */}
-      <YStack className="gap-3">
-        {students.map((student: Student) => (
-          <StudentRow key={student.id} student={student} onAskDelete={onAskDelete} />
-        ))}
-      </YStack>
+      <ScrollView className='flex-1 p-0 pb-16 m-0'>
+        <YStack className="gap-3">
+          {students.map((student: Student) => (
+            <StudentRow key={student.id} student={student} onAskDelete={onAskDelete} />
+          ))}
+        </YStack>
+      </ScrollView>
 
       {/* Floating add button */}
       <XStack className="absolute right-4 bottom-6" pointerEvents="box-none">

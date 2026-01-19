@@ -38,7 +38,6 @@
     "clsx": "^2.1.1",
     "lucide-react-native": "^0.562.0",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss-animate": "^1.0.7",
     "tamagui": "^1.144.1"
   },
   "devDependencies": {

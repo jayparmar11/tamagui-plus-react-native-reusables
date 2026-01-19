@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@my/ui/src/components/button'
-import { Dialog, DialogContent } from '@my/ui/src/components/dialog'
+import { Dialog, DialogContent, DialogOverlay } from '@my/ui/src/components/dialog'
 import { Text } from '@my/ui/src/components/text'
 import { useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft, ChevronRight, Pencil, Plus, Trash2 } from '@tamagui/lucide-icons'
@@ -129,7 +129,7 @@ export function StudentListScreen() {
   const isDeleting = deleteMutation.isPending
 
   return (
-    <View className="flex-1 w-full max-w-3xl px-4 pt-4 pb-16 mx-auto bg-white">
+    <View className="flex-1 w-full max-w-3xl px-4 pt-4 pb-4 mx-auto bg-white">
       {/* Header */}
       <View>
         <Button className='w-fit' variant='outline' size={'lg'} onPress={() => router.back()}>
@@ -167,7 +167,7 @@ export function StudentListScreen() {
 
       {/* List */}
       <ScrollView>
-        <View className="gap-2 mt-2">
+        <View className="gap-2 pb-16 mt-2">
           {students.map((student: Student) => (
             <StudentRow key={student.id} student={student} onAskDelete={onAskDelete} />
           ))}
@@ -186,8 +186,8 @@ export function StudentListScreen() {
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <>
-          {/* <DialogOverlay className="bg-black/40" /> */}
-          <DialogContent className="max-w-md p-4 mx-auto bg-white rounded-lg ">
+          <DialogOverlay className="bg-black/40" />
+          <DialogContent className="max-w-md p-8 mx-auto bg-white rounded-lg ">
             <DeleteConfirmationContent
               name={deleteSheet.name}
               isDeleting={isDeleting}
