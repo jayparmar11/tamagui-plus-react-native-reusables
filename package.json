@@ -9,6 +9,7 @@
     "dev": "turbo dev",
     "native": "cd apps/native && yarn dev",
     "native:prebuild": "cd apps/native && yarn prebuild",
+    "generate":"cd packages/api && yarn generate",
     "ios": "cd apps/native && yarn ios",
     "android": "cd apps/native && yarn android",
     "watch": "ultra -r --no-pretty --concurrency 400 watch",
