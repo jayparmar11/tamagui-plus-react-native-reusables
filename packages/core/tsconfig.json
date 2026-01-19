@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "composite": true,
     "baseUrl": ".",
     "rootDir": "src",
     "jsx": "react-jsx"
