@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "turbo dev",
-    "server": "cd ./.server && npm i && npm run dev",
+    "server": "cd apps/server && npm i && npm run dev",
     "native": "cd apps/native && yarn dev",
     "native:prebuild": "cd apps/native && yarn prebuild",
     "generate": "cd packages/api && yarn generate",
