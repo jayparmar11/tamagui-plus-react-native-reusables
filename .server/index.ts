@@ -125,7 +125,7 @@ api.openapi(
     method: 'get',
     path: '/students/{id}',
     tags: ['students'],
-    operationId: 'getStudent',
+    operationId: 'getStudentById',
     request: { params: ParamsSchema },
     responses: {
       200: { content: { 'application/json': { schema: StudentSchema } }, description: 'Found' },
