@@ -108,6 +108,7 @@ api.openapi(
     method: 'get',
     path: '/students',
     tags: ['students'],
+    operationId: 'getStudents',
     responses: {
       200: {
         content: { 'application/json': { schema: z.array(StudentSchema) } },
@@ -124,6 +125,7 @@ api.openapi(
     method: 'get',
     path: '/students/{id}',
     tags: ['students'],
+    operationId: 'getStudent',
     request: { params: ParamsSchema },
     responses: {
       200: { content: { 'application/json': { schema: StudentSchema } }, description: 'Found' },
@@ -144,6 +146,7 @@ api.openapi(
     method: 'post',
     path: '/students',
     tags: ['students'],
+    operationId: 'createStudent',
     request: { body: { content: { 'application/json': { schema: CreateStudentSchema } } } },
     responses: {
       201: { content: { 'application/json': { schema: StudentSchema } }, description: 'Created' },
@@ -163,6 +166,7 @@ api.openapi(
     method: 'put',
     path: '/students/{id}',
     tags: ['students'],
+    operationId: 'updateStudent',
     request: {
       params: ParamsSchema,
       body: { content: { 'application/json': { schema: CreateStudentSchema } } },
@@ -189,6 +193,7 @@ api.openapi(
     method: 'delete',
     path: '/students/{id}',
     tags: ['students'],
+    operationId: 'deleteStudent',
     request: { params: ParamsSchema },
     responses: {
       200: { description: 'Deleted' },
